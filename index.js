@@ -88,27 +88,11 @@ function processLastItem(stringList, callback) {
  * [2] Invoking `processSum` passing `[]` and `(num) => num + 1000`,
  * should return 1000.
 */
-/*
-function processSum(list,callback) {
-
-  let sum = 0;
-   for(let i=0; i<list.length;i++) {
-       sum = sum + list[i];
-   }
-
-  return callback(sum);  
-   
-}
-*/
-
 function processSum(numberlist, callback) {
-  let tot = numberlist.reduce((total, num) => {
-    return total += num;
-  }, 0);
-    return callback(tot)
+  const sum = numberlist.reduce((total, num) => { return total += num; }, 0);
+  return callback(sum)
 
  }
-
 
 /**
  * ### Challenge `processProduct`
@@ -152,8 +136,9 @@ function processProduct(num1, num2, callback) {
  * "lady gaga" and `['foo', 'bar']` and `(bool) => bool ? 'nice!' : 'sad'`,
  * should return "sad".
 */
-function processContains(/* CODE HERE */) {
-  /* CODE HERE */
+function processContains(item, list, callback) {
+  //return callback(list.filter(s => s.includes(item))); // return foo instead of true&false
+  return callback(list.includes(item));
 }
 
 /**
@@ -175,8 +160,14 @@ function processContains(/* CODE HERE */) {
  * [2] Invoking `processDuplicateFree` passing `[1,1,2,2,3]` and `(arr) => arr.length`,
  * should return 3.
 */
-function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */) {
-  /* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */
+function processDuplicateFree(list,callback) {
+    //https://medium.com/dailyjs/how-to-remove-array-duplicates-in-es6-5daa8789641c //Reference Link
+    const unique_arr = list.filter((item,index) => { 
+                   //console.log(item, index, list.indexOf(item), list.indexOf(item) === index); //Keep for reference
+                   return list.indexOf(item) === index 
+                  });
+    return callback(unique_arr);
+
 }
 
 /////////////// HIGHER-ORDER ARRAY METHODS ///////////////
@@ -197,8 +188,13 @@ function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS
  * @returns an array with all the runners' full names in the following format: "Smith, John".
  * The full names appear in the array in the same order the runners appear in the `runners` array.
 */
-function getFullNames(/* CODE HERE */) {
-  /* CODE HERE */
+function getFullNames(runners) {
+  const fullNames = [];
+  runners.forEach(item =>  { 
+            fullNames.push(`${item.last_name}, ${item.first_name}`);  
+  });
+
+  return fullNames;
 }
 
 /**
@@ -213,8 +209,8 @@ function getFullNames(/* CODE HERE */) {
  * @returns an array with all the runners' first names in ALL CAPS.
  * The first names appear in the array in the same order the runners appear in the `runners` array.
 */
-function firstNamesAllCaps(/* CODE HERE */) {
-  /* CODE HERE */
+function firstNamesAllCaps(runners) {
+   return runners.map(item => { return item.first_name.toUpperCase();});
 }
 
 /**
@@ -230,8 +226,8 @@ function firstNamesAllCaps(/* CODE HERE */) {
  * @returns an array containing only the runners that use the given `tShirtSize`.
  * The runners in the array appear in the same order they appear in the `runners` array.
 */
-function getRunnersByTShirtSize(/* CODE HERE */) {
-  /* CODE HERE */
+function getRunnersByTShirtSize(runners,tShirtSize) {
+  return runners.filter(item => { return item.shirt_size === tShirtSize});
 }
 
 /**
@@ -244,9 +240,11 @@ function getRunnersByTShirtSize(/* CODE HERE */) {
  * @param runners array of runners like the one inside the /data/runners.js file.
  * @returns a number which is the sum of the donations by all runners.
 */
-function tallyUpDonations(/* CODE HERE */) {
-  /* CODE HERE */
+function tallyUpDonations(runners) {
+  const totDonation =  runners.reduce((total,item) => { return total += item.donation;},0);
+  return totDonation;
 }
+
 
 /////////////// CLOSURES ///////////////
 /////////////// CLOSURES ///////////////
